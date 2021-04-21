@@ -6,10 +6,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
     int clicks = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,18 +27,17 @@ public class MainActivity extends AppCompatActivity {
         plusButton.setText("+");
         minusButton.setText("-");
 
-        plusButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clicks++;
-                clicksText.setText(clicks + " Clicks");
-            }
+        plusButton.setOnClickListener(v -> {
+            clicks++;
+            clicksText.setText(clicks + " Clicks");
         });
-        minusButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+
+        minusButton.setOnClickListener(v -> {
+            if (clicks > 0) {
                 clicks--;
                 clicksText.setText(clicks + " Clicks");
+            } else {
+                Toast.makeText(this, "Нельзя уходить в минус!", Toast.LENGTH_SHORT).show();
             }
         });
     }
